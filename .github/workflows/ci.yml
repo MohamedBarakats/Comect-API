@@ -4,9 +4,12 @@ jobs:
   Comect_API:
     runs-on: ubuntu-latest
     services:
-      db:
-        image: postgres:12
-        ports: ['5432:5432']
+      postgres:
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
