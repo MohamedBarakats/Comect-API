@@ -28,8 +28,8 @@ jobs:
           ruby-version: 2.7.1
       - name: Build and run tests
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
-          REDIS_URL: redis://localhost:6379/0
+          PGHOST: 127.0.0.1
+          PGUSER: postgres
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
