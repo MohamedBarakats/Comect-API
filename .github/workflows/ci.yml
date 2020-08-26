@@ -8,8 +8,11 @@ jobs:
         image: postgres
         # Provide the password for postgres
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
         # Set health checks to wait until postgres has started
+        ports:
+        - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -29,13 +32,14 @@ jobs:
       - name: Build and run tests
         env:
           PGHOST: 127.0.0.1
-          PGUSER: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
           bundle install --jobs 4 --retry 3
-          bundle exec rails db:prepare
+          bundle exec rake db:create
+          bundle exec rails db:migrate
           bundle exec rspec
-          bundle exec rubocop
