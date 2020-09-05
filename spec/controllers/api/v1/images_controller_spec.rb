@@ -65,39 +65,46 @@ RSpec.describe Api::V1::ImagesController, type: :controller do
     end
   end
 
-  # describe 'PATCH /update' do
-  #   context 'with valid parameters' do
-  #     let(:new_attributes) do
-  #       skip('Add a hash of attributes valid for your model')
-  #     end
+  describe 'PATCH /update' do
+    let!(:image) { create :image, :with_file }
+    context 'with valid parameters' do
+      it 'updates the requested image' do
+        patch :update, params: {
+          id: image.id,
+          image: {
+            tag: 'new_tag'
+          }
+        }
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to match(a_string_including('application/json'))
+      end
 
-  #     it 'updates the requested image' do
-  #       image = Image.create! valid_attributes
-  #       patch image_url(image),
-  #             params: { image: invalid_attributes }, headers: valid_headers, as: :json
-  #       image.reload
-  #       skip('Add assertions for updated state')
-  #     end
+      it 'renders a JSON response with the image' do
+        patch :update, params: {
+          id: image.id,
+          image: {
+            tag: 'new_tag'
+          }
+        }
+        expect(JSON.parse(response.body).deep_symbolize_keys[:tag]).to eq('new_tag')
+      end
+    end
 
-  #     it 'renders a JSON response with the image' do
-  #       image = Image.create! valid_attributes
-  #       patch image_url(image),
-  #             params: { image: invalid_attributes }, headers: valid_headers, as: :json
-  #       expect(response).to have_http_status(:ok)
-  #       expect(response.content_type).to eq('application/json')
-  #     end
-  #   end
-
-  #   context 'with invalid parameters' do
-  #     it 'renders a JSON response with errors for the image' do
-  #       image = Image.create! valid_attributes
-  #       patch image_url(image),
-  #             params: { image: invalid_attributes }, headers: valid_headers, as: :json
-  #       expect(response).to have_http_status(:unprocessable_entity)
-  #       expect(response.content_type).to eq('application/json')
-  #     end
-  #   end
-  # end
+    context 'with invalid parameters' do
+      it 'renders a JSON response with errors for the image' do
+        patch :update, params: {
+          id: image.id,
+          image: {
+            tag: 'new_tag',
+            description: nil
+          }
+        }
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.content_type).to match(a_string_including('application/json'))
+        expect(JSON.parse(response.body).deep_symbolize_keys).to eq({ description: ["can't be blank"] })
+      end
+    end
+  end
 
   describe 'DELETE /destroy' do
     let!(:image) { create :image, :with_file }
