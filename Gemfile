@@ -24,13 +24,17 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
+gem 'active_model_serializers'
+gem 'active_storage_validations'
 
+#to use :dimension validator or :aspect_ratio validator
+gem 'mini_magick', '>= 4.9.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'pry-byebug'
-  gem 'rspec-rails', '~> 4.0.1'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -43,7 +47,7 @@ group :development do
 end
 group :test do
   gem 'database_cleaner-active_record'
-  gem 'shoulda-matchers', '~> 4.0'
+  gem 'shoulda-matchers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

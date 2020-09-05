@@ -1,5 +1,4 @@
 AllCops:
-  NewCops: enable
   Exclude:
     - 'Gemfile'
     - 'app/mailers/**/*'
@@ -10,12 +9,21 @@ AllCops:
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
     - 'vendor/**/*'
-Style/Documentation:
-  Enabled: false
-
+  NewCops: enable
 Layout/LineLength:
   IgnoredPatterns: ['(\A|\s)#']
   Max: 120
 
+Style/Documentation:
+  Enabled: false
+
 Style/FrozenStringLiteralComment:
   Enabled: true
+
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
