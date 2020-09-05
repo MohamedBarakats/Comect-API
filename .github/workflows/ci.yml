@@ -6,6 +6,10 @@ jobs:
     services:
       postgres:
         image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_USER: mohamedbarakat
+          POSTGRES_PASSWORD: mohamedbarakat
         # Set health checks to wait until postgres has started
         ports:
         - 5432:5432
@@ -28,6 +32,8 @@ jobs:
       - name: Build and run tests
         env:
           PGHOST: 127.0.0.1
+          POSTGRES_USER: mohamedbarakat
+          POSTGRES_PASSWORD: mohamedbarakat
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: |
