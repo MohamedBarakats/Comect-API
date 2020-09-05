@@ -21,14 +21,6 @@ $ bundle exec rspec  --require rails_helper
 $ bundle exec rubocop
 $ rails s
 ```
-If  bundle install throughs this error
-```MySQL Install: ERROR: Failed to build gem native extension```
-You must install openssl and run this commands
-```sh
-$ brew install openssl
-$ bundle config --global build.mysql2 --with-opt-dir="$(brew --prefix openssl)"
-$ bundle install
-```
 ## API Documentation
 
 We use the [swagger specification](https://swagger.io/specification/) to document our API.
