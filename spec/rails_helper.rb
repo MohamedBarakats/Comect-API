@@ -39,7 +39,9 @@ Shoulda::Matchers.configure do |config|
     with.library(:rails)
   end
 end
-
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end
 RSpec.configure do |config|
   # add `FactoryBot` methods
   config.include(FactoryBot::Syntax::Methods)
