@@ -26,7 +26,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'active_storage_validations'
-
+gem "aws-sdk-s3", require: false
 #to use :dimension validator or :aspect_ratio validator
 gem 'mini_magick', '>= 4.9.5'
 group :development, :test do
