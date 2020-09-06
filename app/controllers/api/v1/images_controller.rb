@@ -20,7 +20,7 @@ module Api
       # POST /images
       def create
         @image = Image.new(image_params)
-        @image.file.attach(image_params[:file])
+
         if @image.save
           render json: @image, status: :created
         else
